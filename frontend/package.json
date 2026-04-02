@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tiptap/extension-document": "^3.22.1",
+    "@tiptap/extension-paragraph": "^3.22.1",
+    "@tiptap/extension-text": "^3.22.1",
+    "@tiptap/starter-kit": "^3.22.1",
+    "@tiptap/vue-3": "^3.22.1",
+    "axios": "^1.14.0",
+    "laravel-echo": "^2.3.3",
+    "pinia": "^3.0.4",
+    "pusher-js": "^8.5.0",
+    "vue": "^3.5.30",
+    "vue-cal": "^4.10.2",
+    "vue-draggable-next": "^2.3.0",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.5",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "vite": "^8.0.1"
+  }
+}
