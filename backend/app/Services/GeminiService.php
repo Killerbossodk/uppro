@@ -46,8 +46,8 @@ class GeminiService
                     ];
                 }
 
-                $response = Http::timeout(180)
-                    ->withOptions(['verify' => false, 'connect_timeout' => 30])
+                $response = Http::timeout(20)
+                    ->withOptions(['verify' => false, 'connect_timeout' => 5])
                     ->post($url . '?key=' . $this->apiKey, [
                         'contents' => [['parts' => $parts]],
                         'generationConfig' => [
