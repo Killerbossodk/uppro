@@ -96,8 +96,21 @@ public function store(Request $request)
         'statut' => 'soumis',
     ]);
 
-    // Analyse IA asynchrone
-    dispatch(new \App\Jobs\AnalyzeReportJob($report));
+    // Analyse IA asynchrone par processus d'arrière-plan système (pour ne jamais bloquer la requête HTTP)
+    try {
+        $artisanPath = base_path('artisan');
+        $phpPath = defined('PHP_BINARY') ? PHP_BINARY : 'php';
+        $command = "\"{$phpPath}\" \"{$artisanPath}\" uppro:analyze-report {$report->id}";
+        
+        if (substr(php_uname(), 0, 7) == "Windows") {
+            pclose(popen("start /B {$command} > NUL 2>&1", "r"));
+        } else {
+            exec("{$command} > /dev/null 2>&1 &");
+        }
+    } catch (\Exception $e) {
+        \Log::warning("Impossible de lancer l'analyse en arrière-plan direct, fallback sur le job : " . $e->getMessage());
+        dispatch(new \App\Jobs\AnalyzeReportJob($report));
+    }
 
     // Notifier le professeur
     Notification::create([
